@@ -10,6 +10,8 @@ Skeleton for Squirro Delivery Hiring Coding Challenge
 August 2021
 """
 
+logger = logging.getLogger(__name__)
+
 
 class NoArgumentsException(Exception):
     pass
@@ -52,9 +54,6 @@ class Excel:
         return list(self._column_type.keys())
 
 
-log = logging.getLogger(__name__)
-
-
 class NYTimesSource(object):
     """
     A data loader plugin for the NY Times Data.
@@ -68,8 +67,8 @@ class NYTimesSource(object):
 
     def connect(self, inc_column=None, max_inc_value=None):
         # Ignore this method
-        log.debug("Incremental Column: %r", inc_column)
-        log.debug("Incremental Last Value: %r", max_inc_value)
+        logger.debug("Incremental Column: %r", inc_column)
+        logger.debug("Incremental Last Value: %r", max_inc_value)
 
     def disconnect(self):
         """Disconnect from the source."""
@@ -110,7 +109,7 @@ class NYTimesSource(object):
 
     def _check_args(self):
         if self.args is None:
-            raise NoArgumentsException("Configuration arguments are not set")
+            raise NoArgumentsException(f"Object: '{self.__class__.__name__}' configuration arguments are not set.")
 
     def _load_schema(self):
         if self._schema is not None:
